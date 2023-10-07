@@ -14,12 +14,13 @@ func deleteNode(node *Node, value int) *Node {
 	} else if value > node.Value {
 		node.Right = deleteNode(node.Right, value)
 	} else {
-		// 削除対象のノードが見つかったとき
+		// When the target node for deletion is found
 
+		// If the target node has no children
 		if node.Left == nil && node.Right == nil {
 			return nil
 		}
-		// 削除対象のノードが子ノードを1つだけ持つ場合、その子ノードを削除対象のノードにすげ替える
+		// If the target node has only one child, replace the target node with its child
 		if node.Left == nil {
 			return node.Right
 		}
@@ -27,7 +28,7 @@ func deleteNode(node *Node, value int) *Node {
 			return node.Left
 		}
 
-		// 削除対象のノードが子ノードを2つ持つ場合、右側サブツリーの最小値を削除対象のノードにすげ替える
+		// If the target node has two children, replace the target node with the smallest value in the right subtree
 		minLargest := findMinValue(node.Right)
 		node.Value = minLargest
 		node.Right = deleteNode(node.Right, minLargest)
